@@ -4,21 +4,25 @@ shinyUI(
     headerPanel("Developing Data Products Project"),
     sidebarPanel(
       h3('Variable Selections'),
-      numericInput("qsec", 
-                   "1/4 mile time : ", 
-                   15, 
-                   min = 14, 
-                   max = 25, 
-                   step = 0.01),
-      radioButtons("am", "Transmission : ",
-                   list("Auto" = "0",
-                        "Manual" = "1")),
+      selectInput("am", "Transmission : ",
+                   list("Auto" = 0,
+                        "Manual" = 1)),
+      selectInput("cyl", "Cylinder : ",
+                   list("4" = 4,
+                        "6" = 6,
+                        "8" = 8)),
       numericInput("wt", 
                    "Weight (lb/1000) : ", 
                    1.001, 
                    min = 1, 
                    max = 6, 
                    step = 0.001),
+      numericInput("hp", 
+                   "Gross horsepower : ", 
+                   70, 
+                   min = 50, 
+                   max = 350, 
+                   step = 1),
       submitButton("Submit")
         ),
     
@@ -40,7 +44,10 @@ shinyUI(
           div('Through data exploration, 
               the variables that have statistical influence 
               to the target Miles Per Gallon (mpg) are 
-              Weight (lb/1000) (wt), 1/4 mile time in secs (qsec)
+              Weight (lb/1000) (wt), 
+              Number of Cylinder (cyl),
+              Gross Horsepower (hp),
+              1/4 mile time in secs (qsec)
               and Transmission (am).'),
           h4('Source'),
           div('Henderson and Velleman (1981), 
