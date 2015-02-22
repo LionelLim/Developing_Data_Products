@@ -3,13 +3,15 @@ shinyServer(function(input, output) {
 data <- mtcars
 
 library(caret)
-fit <- train(mpg ~ hp+am+wt,
+set.seed(2345)
+fit <- train(mpg ~ am+wt+qsec,
              method = 'lmStepAIC',
              data = data)
 
 mpg <- reactive({round(predict(fit,
-                          cbind(am=as.numeric(input$am),
-                          hp=as.numeric(input$hp),
+                          cbind(
+                          qsec=as.numeric(input$qsec),
+                          am=as.numeric(input$am),
                           wt=as.numeric(input$wt))), digits = 2)})
 output$results <- renderText({paste("Predicted MPG is :", mpg())})
 

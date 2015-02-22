@@ -4,14 +4,14 @@ shinyUI(
     headerPanel("Developing Data Products Project"),
     sidebarPanel(
       h3('Variable Selections'),
-      numericInput("hp", 
-                   "Gross horsepower : ", 
-                   50, 
-                   min = 50, 
-                   max = 350, 
-                   step = 1),
+      numericInput("qsec", 
+                   "1/4 mile time : ", 
+                   15, 
+                   min = 14, 
+                   max = 25, 
+                   step = 0.01),
       radioButtons("am", "Transmission : ",
-                   list("Automatic" = "0",
+                   list("Auto" = "0",
                         "Manual" = "1")),
       numericInput("wt", 
                    "Weight (lb/1000) : ", 
@@ -40,7 +40,7 @@ shinyUI(
           div('Through data exploration, 
               the variables that have statistical influence 
               to the target Miles Per Gallon (mpg) are 
-              Weight (lb/1000) (wt), Gross horsepower (hp)
+              Weight (lb/1000) (wt), 1/4 mile time in secs (qsec)
               and Transmission (am).'),
           h4('Source'),
           div('Henderson and Velleman (1981), 
