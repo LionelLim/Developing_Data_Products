@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shiny App Presentation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Shiny App Presentation">
+  <meta name="author" content="Lione Lim">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Shiny App Presentation</h1>
+    <h2>Fuel Consumption Prediction</h2>
+    <p>Lione Lim<br/>Consultant</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About the Application</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Fuel consumption of cars are not commonly made known to buyers, and buyer only know some basic information of the car when purchasing. </li>
+<li>This an application developed in Shiny to predict the fuel consumption of a car produced between 1973 and 1974. </li>
+<li>The users only needs to enter some basic information about the car for the prediction.</li>
+<li>Development in Shiny was simple and yet enables powerful web-based interactive data product in R.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>About the Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>The data was extracted from the 1974 Motor Trend US magazine</li>
+<li>It comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).</li>
+<li>The variables provides includes Number of cylinders, Displacement, Horsepower, Transmission and etc.</li>
+<li>The source is Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391-411.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Exploring the Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Review of the variables significance to the predictor (mpg) using linear model was done.</li>
+<li>Remaining variables shown are Weight (wt), Tranmission (am), 1/4 mile time(qsec), Horsepower (hp) and Number of Cylinders (cyl)</li>
+</ol>
+
+<pre><code class="r">varImp(object = fit$finalModel, scale=0)
+</code></pre>
+
+<pre><code>##      Overall
+## cyl6   1.702
+## hp     1.748
+## wt     3.435
+## qsec   1.485
+## am1    2.153
+</code></pre>
+
+<pre><code class="r">fit$result
+</code></pre>
+
+<pre><code>##   parameter  RMSE Rsquared RMSESD RsquaredSD
+## 1      none 5.825    0.501  2.772     0.2866
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Building the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Based on the original model qsec was usedm however, qsec was the least important and not commonly known, we tried removing the variable and the accuracy of model greatly increases. The Rsquared jumped from 0.585 to 0.815</li>
+<li>Therefore the final model was built with only 4 variables.</li>
+</ol>
+
+<pre><code class="r">fit &lt;- train(mpg ~ am+wt+cyl+hp,
+             method = &#39;lmStepAIC&#39;,
+             data = data)
+</code></pre>
+
+<pre><code class="r">varImp(object = fit$finalModel, scale=0)
+</code></pre>
+
+<pre><code>##      Overall
+## am1    1.733
+## wt     3.097
+## cyl6   2.039
+## hp     4.459
+</code></pre>
+
+<pre><code class="r">fit$result
+</code></pre>
+
+<pre><code>##   parameter  RMSE Rsquared RMSESD RsquaredSD
+## 1      none 3.048   0.8125 0.4859    0.07114
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Time to try</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The URL to the application is :</p>
+
+<p><a href="https://lionelim.shinyapps.io/Developing_Data_Products/">https://lionelim.shinyapps.io/Developing_Data_Products/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About the Application'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='About the Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Exploring the Data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Building the model'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Time to try'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
