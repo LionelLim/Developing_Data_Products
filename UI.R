@@ -47,7 +47,6 @@ shinyUI(
               Weight (lb/1000) (wt), 
               Number of Cylinder (cyl),
               Gross Horsepower (hp),
-              1/4 mile time in secs (qsec)
               and Transmission (am).'),
           h4('Source'),
           div('Henderson and Velleman (1981), 
