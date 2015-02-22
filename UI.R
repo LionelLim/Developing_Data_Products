@@ -4,19 +4,21 @@ shinyUI(
     headerPanel("Developing Data Products Project"),
     sidebarPanel(
       h3('Variable Selections'),
-      radioButtons("gear", "Number of forward gears:",
-                   list("3" = "3",
-                        "4" = "4",
-                        "5" = "5")),
-      radioButtons("am", "Transmission :",
+      numericInput("hp", 
+                   "Gross horsepower : ", 
+                   50, 
+                   min = 50, 
+                   max = 350, 
+                   step = 1),
+      radioButtons("am", "Transmission : ",
                    list("Automatic" = "0",
                         "Manual" = "1")),
-      numericInput("carb", 
-                   "Number of carburetors [1-8]:", 
-                   1, 
+      numericInput("wt", 
+                   "Weight (lb/1000) : ", 
+                   1.001, 
                    min = 1, 
-                   max = 8, 
-                   step = 1),
+                   max = 6, 
+                   step = 0.001),
       submitButton("Submit")
         ),
     
@@ -38,7 +40,7 @@ shinyUI(
           div('Through data exploration, 
               the variables that have statistical influence 
               to the target Miles Per Gallon (mpg) are 
-              Number of forward gears (gear), Number of carburetors (carb)
+              Weight (lb/1000) (wt), Gross horsepower (hp)
               and Transmission (am).'),
           h4('Source'),
           div('Henderson and Velleman (1981), 
